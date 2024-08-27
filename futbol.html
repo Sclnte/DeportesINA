@@ -65,6 +65,24 @@
 		cursor: pointer;
 	}
 
+	#inicio {
+		margin: 20px;
+		text-align: center;
+	}
+
+	#inicio a {
+		color: white;
+		background-color: #333;
+		padding: 10px 20px;
+		text-decoration: none;
+		border-radius: 5px;
+		transition: background 0.3s;
+	}
+
+	#inicio a:hover {
+		background-color: #555;
+	}
+
 </style>
 
 <script>
@@ -186,11 +204,18 @@ var disparo=function(dir){
 	document.getElementById('atajadas').innerHTML = atajadas;
 	document.getElementById('disparos').innerHTML = disparos;
 }
+// Aquí va el código JavaScript del juego ...
+
 </script>
 
 </head>
 
 <body>
+
+<!-- Botón de Inicio -->
+<div id="inicio">
+	<a href="index.html">Inicio</a>  <!-- Vinculación al archivo index.html o a la URL deseada -->
+</div>
 
 <table border="0">
 	<caption>Champions League</caption>
@@ -245,3 +270,4 @@ var disparo=function(dir){
 </body>
 
 </html>
+
