@@ -1,0 +1,149 @@
+/* Estilo base */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background: linear-gradient(to right, #0066cc, #003366);
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+header .logo img {
+    max-width: 80px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+nav {
+    background: #004080;
+    color: #fff;
+    padding: 15px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+nav ul li a:hover {
+    color: #ffcc00;
+    transition: color 0.3s ease;
+}
+
+section {
+    padding: 40px 20px;
+}
+
+h2 {
+    color: #003366;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.divisions-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.division {
+    width: 48%;
+    margin-bottom: 20px;
+}
+
+.accordion {
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: background-color 0.4s ease;
+    border-radius: 5px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px; /* Ajusta la altura según sea necesario */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.accordion.active, .accordion:hover {
+    background-color: #0056b3;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); /* Sombra más intensa */
+}
+
+.accordion.femenino {
+    background-image: url('femenino.png');
+}
+
+.accordion.masculino {
+    background-image: url('masculino.png');
+}
+
+.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+}
+
+.panel a {
+    display: block;
+    margin: 10px 0;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.panel a:hover {
+    text-decoration: underline;
+}
+
+/* Media Query para responsividad */
+@media screen and (max-width: 768px) {
+    .divisions-container {
+        flex-direction: column;
+    }
+    .division {
+        width: 100%;
+    }
+}
