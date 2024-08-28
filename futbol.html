@@ -289,4 +289,39 @@
         <caption>Estadísticas</caption>
         <tr>
             <td>Disparos</td>
-            <td><span id="disparos">0</
+            <td><span id="disparos">0</span></td>
+        </tr>
+        <tr>
+            <td>Goles</td>
+            <td><span id="goles">0</span></td>
+        </tr>
+        <tr>
+            <td>Atajadas</td>
+            <td><span id="atajadas">0</span></td>
+        </tr>
+    </table>
+
+    <br>
+
+    <table border="0">
+        <tr>
+            <td><img width="100px" height="100px" src="left.png" onclick="disparo('izq')" /></td>
+            <td><img width="100px" height="100px" src="up.png" onclick="disparo('cen')" /></td>
+            <td><img width="100px" height="100px" src="right.png" onclick="disparo('der')" /></td>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align:center;"><button type="button" onclick="recargar()">Reset</button></td>
+        </tr>
+    </table>
+
+    <div id="questionModal">
+        <div id="questionModalContent">
+            <p id="modalPregunta"></p>
+            <input type="text" id="modalRespuesta" />
+            <button id="submitAnswer">Enviar respuesta</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
