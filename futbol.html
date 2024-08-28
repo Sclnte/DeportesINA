@@ -2,272 +2,325 @@
 <html>
 
 <head>
+    <title>Penalty Kicks</title>
+    <meta charset="utf-8">
 
-<title>Penalty Kicks</title>
-<meta charset="utf-8">
+    <style>
+        body {
+            background-image: url("53B.jpg");
+            color: white;
+            font-variant: small-caps;
+            transition: background 1s;
+        }
 
-<style>
-	body{
-		background-image:  url("53B.jpg");
-		color:white;
-		font-variant: small-caps;
-		transition: background 1s;
-	}
+        table {
+            margin: auto;
+            border-spacing: 0px;
+        }
 
-	table{
-		margin:auto;
-		border-spacing: 0px;
-	}
+        h2 {
+            text-align: center;
+        }
 
-	h2{
-		text-align: center;
-	}
+        img {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
 
-	@keyframes glitter {
-		0%, 100% { background-position: 0 0; }
-		50% { background-position: 100% 100%; }
-	}
+        @keyframes glitter {
+            0%,
+            100% {
+                background-position: 0 0;
+            }
 
-	.glitter-effect {
-		background: url('glitter.png');
-		background-size: cover;
-		animation: glitter 1s linear infinite;
-	}
+            50% {
+                background-position: 100% 100%;
+            }
+        }
 
-	#questionModal {
-		display: none;
-		position: fixed;
-		z-index: 1;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		overflow: auto;
-		background-color: rgba(0,0,0,0.4);
-	}
+        .glitter-effect {
+            background: url('glitter.png');
+            background-size: cover;
+            animation: glitter 1s linear infinite;
+        }
 
-	#questionModalContent {
-		background-color: #fefefe;
-		margin: 15% auto;
-		padding: 20px;
-		border: 1px solid #888;
-		width: 80%;
-		text-align: center;
-		color: black;
-	}
+        @keyframes shoot {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
 
-	#questionModalContent button {
-		margin-top: 10px;
-		padding: 10px 20px;
-		background-color: #4CAF50;
-		color: white;
-		border: none;
-		cursor: pointer;
-	}
+            100% {
+                transform: scale(1.5) translateY(-50px);
+                opacity: 0;
+            }
+        }
 
-	#inicio {
-		margin: 20px;
-		text-align: center;
-	}
+        .shoot {
+            animation: shoot 0.5s forwards;
+        }
 
-	#inicio a {
-		color: white;
-		background-color: #333;
-		padding: 10px 20px;
-		text-decoration: none;
-		border-radius: 5px;
-		transition: background 0.3s;
-	}
+        @keyframes goalFlash {
+            0% {
+                background-color: rgba(255, 255, 255, 0.5);
+            }
 
-	#inicio a:hover {
-		background-color: #555;
-	}
+            100% {
+                background-color: rgba(0, 0, 0, 0);
+            }
+        }
 
-</style>
+        .goal-flash {
+            animation: goalFlash 0.3s forwards;
+        }
 
-<script>
-var goles=0;
-var atajadas=0;
-var disparos=0;
-var preguntas = [
-	{
-		pregunta: "¿Cuánto es 2 + 2?",
-		respuesta: "4"
-	},
-	{
-		pregunta: "¿Cuál es la capital de Francia?",
-		respuesta: "París"
-	},
-	{
-		pregunta: "¿Cómo se dice 'gato' en inglés?",
-		respuesta: "Cat"
-	},
-	{
-		pregunta: "¿Cuál es el estado de la materia en que se encuentra el agua a 0°C?",
-		respuesta: "Sólido"
-	}
-];
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
 
-var limpiar=function(){
-	document.getElementById('img_0').src='arco.png';
-	document.getElementById('img_1').src='arco.png';
-	document.getElementById('img_2').src='arco.png';
-}
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
 
-var arquero_centro=function(){
-	document.getElementById('img_0').src='arco.png';
-	document.getElementById('img_1').src='gk.png';
-	document.getElementById('img_2').src='arco.png';
-}
+        #questionModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
 
-var recargar=function() {
-    location.reload();
-}
+        #questionModalContent {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            text-align: center;
+            color: black;
+            animation: fadeIn 0.3s ease-out;
+        }
 
-var mostrarPregunta=function(){
-	var randomIndex = Math.floor(Math.random() * preguntas.length);
-	var preguntaSeleccionada = preguntas[randomIndex];
-	document.getElementById('modalPregunta').innerText = preguntaSeleccionada.pregunta;
-	document.getElementById('modalRespuesta').value = '';
-	document.getElementById('questionModal').style.display = 'block';
-	document.getElementById('submitAnswer').onclick = function() {
-		var respuestaUsuario = document.getElementById('modalRespuesta').value.trim().toLowerCase();
-		if(respuestaUsuario === preguntaSeleccionada.respuesta.toLowerCase()) {
-			document.getElementById('questionModal').style.display = 'none';
-		} else {
-			alert('Respuesta incorrecta. Intenta nuevamente.');
-		}
-	}
-}
+        #questionModalContent button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
 
-var disparo=function(dir){
-	limpiar();
-	var gk = parseInt(Math.random() * 3);
+        #inicio {
+            margin: 20px;
+            text-align: center;
+        }
 
-	switch(dir){
-		case 'izq':
-			if(gk == 0){
-				document.getElementById('img_0').src = 'gk_l_tapo.png';
-				document.getElementById('mens').innerHTML = 'Gran atajada!';
-				atajadas++;
-			} else {
-				document.getElementById('img_0').src = 'gol.png';
-				document.getElementById('mens').innerHTML = 'GOAL!!!!!!!';
-				goles++;
-			}
-		break;
+        #inicio a {
+            color: white;
+            background-color: #333;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
 
-		case 'cen':
-			if(gk == 1){
-				document.getElementById('img_1').src = 'gk_c_tapo.png';
-				document.getElementById('mens').innerHTML = 'Gran atajada!';
-				atajadas++;
-			} else {
-				document.getElementById('img_1').src = 'gol.png';
-				document.getElementById('mens').innerHTML = 'GOAL!!!!!!!';
-				goles++;
-			}
-		break;
+        #inicio a:hover {
+            background-color: #555;
+        }
+    </style>
 
-		case 'der':
-			if(gk == 2){
-				document.getElementById('img_2').src = 'gk_r_tapo.png';
-				document.getElementById('mens').innerHTML = 'Gran atajada!';
-				atajadas++;
-			} else {
-				document.getElementById('img_2').src = 'gol.png';
-				document.getElementById('mens').innerHTML = 'GOAL!!!!!!!';
-				goles++;
-			}
-		break;
-	}
+    <script>
+        var goles = 0;
+        var atajadas = 0;
+        var disparos = 0;
+        var preguntas = [
+            {
+                pregunta: "¿Cuánto es 2 + 2?",
+                respuesta: "4"
+            },
+            {
+                pregunta: "¿Cuál es la capital de Francia?",
+                respuesta: "París"
+            },
+            {
+                pregunta: "¿Cómo se dice 'gato' en inglés?",
+                respuesta: "Cat"
+            },
+            {
+                pregunta: "¿Cuál es el estado de la materia en que se encuentra el agua a 0°C?",
+                respuesta: "Sólido"
+            }
+        ];
 
-	disparos++;
+        var limpiar = function () {
+            document.getElementById('img_0').src = 'arco.png';
+            document.getElementById('img_1').src = 'arco.png';
+            document.getElementById('img_2').src = 'arco.png';
+        }
 
-	if(disparos % 5 === 0) {
-		if(goles < 3) {
-			document.getElementById('mens').innerHTML = 'Vuelve a intentarlo...';
-			setTimeout(mostrarPregunta, 1000);
-		} else {
-			document.getElementById('mens').innerHTML = '¡Felicidades!';
-			document.body.classList.add('glitter-effect');
-			setTimeout(function(){
-				document.body.classList.remove('glitter-effect');
-			}, 3000);
-		}
-		goles = 0;
-		atajadas = 0;
-		disparos = 0;
-	}
+        var arquero_centro = function () {
+            document.getElementById('img_0').src = 'arco.png';
+            document.getElementById('img_1').src = 'gk.png';
+            document.getElementById('img_2').src = 'arco.png';
+        }
 
-	document.getElementById('goles').innerHTML = goles;
-	document.getElementById('atajadas').innerHTML = atajadas;
-	document.getElementById('disparos').innerHTML = disparos;
-}
-// Aquí va el código JavaScript del juego ...
+        var recargar = function () {
+            location.reload();
+        }
 
-</script>
+        var mostrarPregunta = function () {
+            var randomIndex = Math.floor(Math.random() * preguntas.length);
+            var preguntaSeleccionada = preguntas[randomIndex];
+            document.getElementById('modalPregunta').innerText = preguntaSeleccionada.pregunta;
+            document.getElementById('modalRespuesta').value = '';
+            document.getElementById('questionModal').style.display = 'block';
+            document.getElementById('submitAnswer').onclick = function () {
+                var respuestaUsuario = document.getElementById('modalRespuesta').value.trim().toLowerCase();
+                if (respuestaUsuario === preguntaSeleccionada.respuesta.toLowerCase()) {
+                    document.getElementById('questionModal').style.display = 'none';
+                } else {
+                    alert('Respuesta incorrecta. Intenta nuevamente.');
+                }
+            }
+        }
+
+        var disparo = function (dir) {
+            limpiar();
+            var gk = parseInt(Math.random() * 3);
+            var imgElement;
+
+            switch (dir) {
+                case 'izq':
+                    imgElement = document.getElementById('img_0');
+                    break;
+                case 'cen':
+                    imgElement = document.getElementById('img_1');
+                    break;
+                case 'der':
+                    imgElement = document.getElementById('img_2');
+                    break;
+            }
+
+            imgElement.classList.add('shoot');
+            setTimeout(function () {
+                imgElement.classList.remove('shoot');
+
+                if ((dir === 'izq' && gk == 0) || (dir === 'cen' && gk == 1) || (dir === 'der' && gk == 2)) {
+                    imgElement.src = gk == 0 ? 'gk_l_tapo.png' : gk == 1 ? 'gk_c_tapo.png' : 'gk_r_tapo.png';
+                    document.getElementById('mens').innerHTML = 'Gran atajada!';
+                    atajadas++;
+                } else {
+                    imgElement.src = 'gol.png';
+                    document.getElementById('mens').innerHTML = 'GOAL!!!!!!!';
+                    document.body.classList.add('goal-flash');
+                    setTimeout(function () {
+                        document.body.classList.remove('goal-flash');
+                    }, 300);
+                    goles++;
+                }
+
+                disparos++;
+
+                if (disparos % 5 === 0) {
+                    if (goles < 3) {
+                        document.getElementById('mens').innerHTML = 'Vuelve a intentarlo...';
+                        setTimeout(mostrarPregunta, 1000);
+                    } else {
+                        document.getElementById('mens').innerHTML = '¡Felicidades!';
+                        document.body.classList.add('glitter-effect');
+                        setTimeout(function () {
+                            document.body.classList.remove('glitter-effect');
+                        }, 3000);
+                    }
+                    goles = 0;
+                    atajadas = 0;
+                    disparos = 0;
+                }
+
+                document.getElementById('goles').innerHTML = goles;
+                document.getElementById('atajadas').innerHTML = atajadas;
+                document.getElementById('disparos').innerHTML = disparos;
+
+            }, 500);
+        }
+
+        window.onload = function () {
+            // Pre-cargar todas las imágenes necesarias
+            var images = ['arco.png', 'gk.png', 'gol.png', 'gk_l_tapo.png', 'gk_c_tapo.png', 'gk_r_tapo.png'];
+            images.forEach(function (src) {
+                var img = new Image();
+                img.src = src;
+            });
+        }
+    </script>
 
 </head>
 
 <body>
 
-<!-- Botón de Inicio -->
-<div id="inicio">
-	<a href="index.html">Inicio</a>  <!-- Vinculación al archivo index.html o a la URL deseada -->
-</div>
+    <!-- Botón de Inicio -->
+    <div id="inicio">
+        <a href="index.html">Inicio</a>
+    </div>
 
-<table border="0">
-	<caption>Champions League</caption>
-	<tr>
-		<td><img id="img_0" src="arco.png" /></td>
-		<td><img id="img_1" src="gk.png" /></td>
-		<td><img id="img_2" src="arco.png" /></td>
-	</tr>
-</table>
+    <table border="0">
+        <caption>Champions League</caption>
+        <tr>
+            <td><img id="img_0" src="arco.png" /></td>
+            <td><img id="img_1" src="gk.png" /></td>
+            <td><img id="img_2" src="arco.png" /></td>
+        </tr>
+    </table>
 
-<div id="mens" style="text-align:center;font-size:20px;">Dispara!</div>
+    <div id="mens" style="text-align:center;font-size:20px;">Dispara!</div>
 
-<br>
+    <br>
 
-<table border="1">
-	<caption>Estadísticas</caption>
-	<tr>
-		<td>Disparos</td>
-		<td><span id="disparos">0</span></td>
-	</tr>
-	<tr>
-		<td>Goles</td>
-		<td><span id="goles">0</span></td>
-	</tr>
-	<tr>
-		<td>Atajadas</td>
-		<td><span id="atajadas">0</span></td>
-	</tr>
-</table>
+    <table border="1">
+        <caption>Estadísticas</caption>
+        <tr>
+            <td>Disparos</td>
+            <td><span id="disparos">0</span></td>
+        </tr>
+        <tr>
+            <td>Goles</td>
+            <td><span id="goles">0</span></td>
+        </tr>
+        <tr>
+            <td>Atajadas</td>
+            <td><span id="atajadas">0</span></td>
+        </tr>
+    </table>
 
-<br>
+    <br>
 
-<table border="0">
-	<tr>
-		<td><img width="100px" height="100px" src="left.png" onclick="disparo('izq')" /></td>
-		<td><img width="100px" height="100px" src="up.png" onclick="disparo('cen')" /></td>
-		<td><img width="100px" height="100px" src="right.png" onclick="disparo('der')" /></td>
-	</tr>
-	<tr>
-		<td colspan="3" style="text-align:center;"><button type="button" onclick="recargar()">Reset</button></td>
-	</tr>
-</table>
+    <table border="0">
+        <tr>
+            <td><button onclick="disparo('izq')">Izquierda</button></td>
+            <td><button onclick="disparo('cen')">Centro</button></td>
+            <td><button onclick="disparo('der')">Derecha</button></td>
+        </tr>
+    </table>
 
-<div id="questionModal">
-	<div id="questionModalContent">
-		<p id="modalPregunta"></p>
-		<input type="text" id="modalRespuesta" />
-		<button id="submitAnswer">Enviar respuesta</button>
-	</div>
-</div>
+    <br>
+
+    <!-- Modal de Pregunta -->
+    <div id="questionModal">
+        <div id="questionModalContent">
+            <p id="modalPregunta"></p>
+            <input type="text" id="modalRespuesta">
+            <br>
+            <button id="submitAnswer">Responder</button>
+        </div>
+    </div>
 
 </body>
 
 </html>
-
