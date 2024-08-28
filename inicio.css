@@ -9,7 +9,21 @@ body {
     background-color: #f4f4f4;
     color: #333;
 }
+/* Estilos para pantallas pequeñas (celulares) */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .container {
+    padding: 10px;
+    width: 100%;
+  }
 
+  .header {
+    font-size: 20px;
+    text-align: center;
+  }
 /* Header */
 header {
     background-color: #003366;
